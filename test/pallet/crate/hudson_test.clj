@@ -381,3 +381,15 @@
                           ("test"
                            (file-exists? "/var/lib/hudson/hudson.tasks.Ant.xml"))))}}}
      (core/lift (:hudson node-types) :phase :verify :compute compute))))
+
+(deftest user-test
+  (testing "generate user xml"
+           (let [full "First Last"
+                 hash "hash-foo-bar"
+                 mail "somone@some.domain"
+                 xml (hudson-user-xml
+                       {:server {}}
+                       {:full-name full :password-hash hash :email mail})]
+             (is (.contains xml full))
+             (is (.contains xml hash))
+             (is (.contains xml mail)))))

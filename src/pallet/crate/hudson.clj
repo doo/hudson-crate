@@ -939,11 +939,8 @@
     (path-for *user-config-file*) session
     [user]
     [:fullName] (xml/content (:full-name user))
-    [(xml/tag= "hudson.security.HudsonPrivateSecurityRealm_-Details")
-     :passwordHash]
-    (:password-hash user)
-    [(xml/tag= "hudson.tasks.Mailer_-UserProperty") :emailAddress]
-    (:email user))
+    [:passwordHash] (xml/content (:password-hash user))
+    [:emailAddress] (xml/content (:email user)))
    user))
 
 (defn user
